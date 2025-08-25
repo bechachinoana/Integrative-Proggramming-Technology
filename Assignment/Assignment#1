@@ -1,0 +1,60 @@
+if statement
+
+Executes some code if one condition is true.
+
+<?php
+$age = 20;
+
+if ($age >= 18) {
+    echo "You are an adult.";
+}
+?>
+. if...else statement
+
+Executes one block if the condition is true, and another if it is false.
+
+<?php
+$score = 45;
+
+if ($score >= 50) {
+    echo "You passed the exam.";
+} else {
+    echo "You failed the exam.";
+}
+?>
+if...elseif...else statement
+
+Executes different blocks based on multiple conditions.
+
+<?php
+$temperature = 30;
+
+if ($temperature < 0) {
+    echo "It's freezing!";
+} elseif ($temperature >= 0 && $temperature <= 20) {
+    echo "It's a bit cold.";
+} else {
+    echo "It's warm.";
+}
+?>
+switch statement
+
+Selects one of many blocks based on a variable’s value.
+
+<?php
+$day = "Wednesday";
+
+switch ($day) {
+    case "Monday":
+        echo "Start of the work week!";
+        break;
+    case "Wednesday":
+        echo "Midweek day.";
+        break;
+    case "Friday":
+        echo "Almost weekend!";
+        break;
+    default:
+        echo "Just another day.";
+}
+?>
