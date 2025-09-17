@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>REST API Demo - GET & POST</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* 🌈 Animated Gradient Background */
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2, #ff758c, #ff7eb3);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ✨ Glassmorphism Card */
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      padding: 40px 30px;
+      width: 400px;
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 24px;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    /* 📝 Input Group with Icons */
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+    .input-group i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+    }
+    input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      background: rgba(255,255,255,0.8);
+      color: #333;
+      transition: 0.3s;
+    }
+    input:focus {
+      box-shadow: 0 0 10px #ff7eb3;
+    }
+
+    /* 🎨 Button Styles */
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* 📜 Response Output */
+    .output {
+      text-align: left;
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 12px;
+      max-height: 200px;
+      overflow: auto;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2><i class="fa-solid fa-cloud"></i> REST API Demo</h2>
+
+    <div class="input-group">
+      <i class="fa-solid fa-user"></i>
+      <input id="username" placeholder="Enter your name">
+    </div>
+
+    <div class="btn-group">
+      <button onclick="sendGet()"><i class="fa-solid fa-download"></i> GET</button>
+      <button onclick="sendPost()"><i class="fa-solid fa-upload"></i> POST</button>
+    </div>
+
+    <h3 style="margin:10px 0;">Response:</h3>
+    <div class="output" id="output">—</div>
+  </div>
+
+  <script>
+    const API_URL = "api.php"; // iyong PHP backend
+
+    function show(obj) {
+      document.getElementById("output").innerText = JSON.stringify(obj, null, 2);
+    }
+
+    function sendGet() {
+      const name = document.getElementById("username").value;
+      fetch(`${API_URL}?username=${encodeURIComponent(name)}`)
+        .then(r => r.json())
+        .then(show)
+        .catch(err => show({error: err.toString()}));
+    }
+
+    function sendPost() {
+      const name = document.getElementById("username").value;
+      fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: name })
+      })
+      .then(r => r.json())
+      .then(show)
+      .catch(err => show({error: err.toString()}));
+    }
+  </script>
+</body>
+</html>
